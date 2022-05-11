@@ -1,0 +1,170 @@
+<html>
+    <head>
+        
+        <title>Upload Excel</title>   
+        <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{url_for('static',filename='myfont/css/all.min.css')}}">
+		<script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+        <style>
+        html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+        
+        element.style {
+            height: 24px;
+            width: 100%;
+        }
+        .w3-teal, .w3-hover-teal:hover {
+            color: #fff!important;
+            background-color: #7d2ae8 !important;
+        }
+        </style>
+
+
+
+    </head>
+    <body>
+        <div class="w3-top">
+            <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+              <a class="w3-bar-item w3-button"><b>FLASK</b> Welcome to my flask project user dashboard</a>
+              <!-- Float links to the right. Hide them on small screens -->
+              <div class="w3-right w3-hide-small">
+                <a href="/transactions" class="w3-bar-item w3-button"><b>Home Page</b></a>
+                <a href="/logout" class="w3-bar-item w3-button"><b>Log out</b></a>
+                  </div>
+            </div>
+          </div>
+
+
+
+
+
+</br></br>
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+	
+
+  <!-- The Grid -->
+  <div class="w3-row-padding">
+  
+    <!-- Left Column -->
+    <div class="w3-third">
+    
+      <div class="w3-white w3-text-grey w3-card-4">
+        <div class="w3-display-container">
+          <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1031&q=80" style="width:100%" alt="Avatar">
+          <div class="w3-display-bottomleft w3-container w3-text-black">
+            <h2>Student Demo</h2>
+          </div>
+        </div>
+        <div class="w3-container">
+          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Student</p>
+          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Washignton, USA</p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>demo@mail.com</p>
+          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>1224435534</p>
+          <hr>
+
+    
+          <br>
+
+     
+          <br>
+        </div>
+      </div><br>
+
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+
+
+        
+    
+      <div class=" w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Transaction Summary</h2>
+        <div >
+          
+            <div class="col-md-offset-3 col-md-5" style="margin-top:50px">
+                <form action="/transactions" method="POST" enctype="multipart/form-data">
+                    <h3 class="page-header text-primary">Upload Excel Transaction File</h3>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category,message in messages %}
+                                <div class="alert alert-{{category}}">{{message}}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                     <div class="form-group">
+                        <label>Browse CSV File</label>
+                        <input type="file" class="form-control" name="uploadExcel">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Upload Excel File" class="btn btn-primary btn-block">
+                    </div>
+                </form>
+            </div>
+            {% if data %}
+                <div class="row">
+                <div class="col-md-offset-3 col-md-5">
+                    <h3 class="page-header text-primary "><span class="fa fa-excel">Excel Transaction File</span></h3>
+                     <table class="table table-bordered">
+                          <thead>
+                                <tr>
+                                <th>Serial No.</th>
+                                <th>Excel</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                         {% for res in data %}
+                         {% set i=loop.index %}
+                            <tbody>
+                                <tr>
+                                    <td style="text-align:center">{{i}}</td>
+                                    <td><a href="{{url_for('view_excel',id=res['pid'])}}" class="btn btn-primary btn-block">{{res['exceldata']}}</a></td>
+                                    <td><a href="{{url_for('delete_record',id=res['pid'])}}" class="btn btn-danger btn-block">Delete</a></td>
+                                </tr>
+                            </tbody>
+                    {% endfor %}
+                          </table>
+                </div>
+            </div>
+            {% endif %}
+
+
+
+
+
+         
+        </div>
+
+      </div>
+
+
+
+    <!-- End Right Column -->
+    </div>
+    
+  <!-- End Grid -->
+  </div>
+  
+  <!-- End Page Container -->
+</div>
+
+
+
+
+
+
+
+    </body>
+</html>
+<script>
+    $(document).ready(function(){
+        $(".alert").hide(4000);
+    });
+</script>

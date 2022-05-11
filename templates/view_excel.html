@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Excel</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+    <style>
+    html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+    
+    element.style {
+        height: 24px;
+        width: 100%;
+    }
+    .w3-teal, .w3-hover-teal:hover {
+        color: #fff!important;
+        background-color: #7d2ae8 !important;
+    }
+    </style>
+
+</head>
+<body>
+
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+          <a class="w3-bar-item w3-button"><b>FLASK</b> Welcome to my flask project user dashboard</a>
+          <!-- Float links to the right. Hide them on small screens -->
+          <div class="w3-right w3-hide-small">
+            <a href="/transactions" class="w3-bar-item w3-button"><b>Transaction Dashboard</b></a>
+            <a href="/logout" class="w3-bar-item w3-button"><b>Log out</b></a>
+              </div>
+        </div>
+      </div>
+
+
+
+
+      
+    <div class="col-md-offset-3 col-md-5" style="margin-top:100px">
+        <h3 class="page-header text-primary text-center"><span class="fa fa-suitcase"> <b>Transaction summary of the given Excel File </b> </span></h3>
+        {{data|safe}}
+    </div>
+</body>
+</html>
